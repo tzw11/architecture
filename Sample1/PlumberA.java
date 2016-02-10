@@ -18,7 +18,7 @@
 * Internal Methods:	None
 *
 ******************************************************************************************************************/
-public class Plumber
+public class PlumberA
 {
    public static void main( String argv[])
    {
@@ -29,15 +29,20 @@ public class Plumber
 		SourceFilter Filter1 = new SourceFilter("FlightData.dat");
 		// MiddleFilter Filter2 = new MiddleFilter();
 		 // TemperatureConvertor Filter2 = new TemperatureConvertor();
-		AltitudeConvertor Filter2 = new AltitudeConvertor();
-		SinkFilter Filter3 = new SinkFilter();
+		TempAltFilter Filter2 = new TempAltFilter();
+		TemperatureConvertor Filter3 = new TemperatureConvertor();
+		AltitudeConvertor Filter4 = new AltitudeConvertor();
+		// AltitudeConvertor Filter2 = new AltitudeConvertor();
+
+		SinkFilter Filter5 = new SinkFilter();
 
 		/****************************************************************************
 		* Here we connect the filters starting with the sink filter (Filter 1) which
 		* we connect to Filter2 the middle filter. Then we connect Filter2 to the
 		* source filter (Filter3).
 		****************************************************************************/
-
+		Filter5.Connect(Filter4, 0, 0);
+		Filter4.Connect(Filter3, 0, 0);
 		Filter3.Connect(Filter2, 0, 0); // This esstially says, "connect Filter3 input port to Filter2 output port
 		Filter2.Connect(Filter1, 0, 0); // This esstially says, "connect Filter2 intput port to Filter1 output port
 
@@ -48,6 +53,9 @@ public class Plumber
 		Filter1.start();
 		Filter2.start();
 		Filter3.start();
+		Filter4.start();
+		Filter5.start();
+
 
    } // main
 

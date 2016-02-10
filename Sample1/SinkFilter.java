@@ -128,6 +128,7 @@ public class SinkFilter extends FilterFramework
 				if ( id == 0 )
 				{
 					TimeStamp.setTimeInMillis(measurement);
+					System.out.print( " ID = " + id + " " + TimeStampFormat.format(TimeStamp.getTime()));
 
 				} // if
 
@@ -140,10 +141,9 @@ public class SinkFilter extends FilterFramework
 				// we print the time stamp and the data associated with the ID we are interested
 				// in.
 				****************************************************************************/
-
-				if ( id == 2 )
+				else
 				{
-					System.out.print( TimeStampFormat.format(TimeStamp.getTime()) + " ID = " + id + " " + Double.longBitsToDouble(measurement) );
+					System.out.print( " ID = " + id + " " + Double.longBitsToDouble(measurement) );
 
 				} // if
 
