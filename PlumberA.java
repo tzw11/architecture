@@ -25,7 +25,7 @@ public class PlumberA
 		TempAltFilter Filter2 = new TempAltFilter();
 		TemperatureConvertor Filter3 = new TemperatureConvertor();
 		AltitudeConvertor Filter4 = new AltitudeConvertor();
-		SinkFilter Filter5 = new SinkFilter("outputA.dat");
+		SinkFilter Filter5 = new SinkFilter("./OutputA/outputA.dat");
 
 		/****************************************************************************
 		* Here we connect the filters starting with the sink filter (Filter 1) which

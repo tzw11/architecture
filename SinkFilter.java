@@ -19,6 +19,7 @@
 * Internal Methods: None
 *
 ******************************************************************************************************************/
+
 import java.io.*;
 import java.util.*;						// This class is used to interpret time words
 import java.text.SimpleDateFormat;		// This class is used to format and write time in a string format.
@@ -193,7 +194,7 @@ public class SinkFilter extends FilterFramework
 
 		} // while
   }catch (IOException e) {
-    System.out.print("\n oh my god");
+    System.out.print("\n oh my god"+e.getMessage());
   }
 
    } // run

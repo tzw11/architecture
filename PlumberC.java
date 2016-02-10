@@ -1,5 +1,6 @@
 import java.util.logging.Filter;
 
+
 /******************************************************************************************************************
 * File:PlumberC.java
 * Course: 17655
@@ -28,9 +29,9 @@ public class PlumberC
         MergeFilter Filter3 = new MergeFilter();
         LessThan10k Filter4 = new LessThan10k();
         WildPointFilter Filter5 = new WildPointFilter(6);
-        SinkFilter Filter6 = new SinkFilter("wildPoint.dat");
-        SinkFilter Filter7 = new SinkFilter("LessThan10K.dat");
-        SinkFilter Filter8 = new SinkFilter("outputC");
+        SinkFilter Filter6 = new SinkFilter("./OutputC/wildPoint.dat");
+        SinkFilter Filter7 = new SinkFilter("./OutputC/LessThan10K.dat");
+        SinkFilter Filter8 = new SinkFilter("./OutputC/outputC.dat");
 
         /****************************************************************************
         * Here we connect the filters starting with the sink filter (Filter 1) which

@@ -12,6 +12,7 @@
 * Internal Methods: None
 *
 ******************************************************************************************************************/
+
 public class PlumberB
 {
  public static void main( String[] argv)
@@ -25,8 +26,8 @@ public class PlumberB
         TemperatureConvertor Filter3 = new TemperatureConvertor();
         AltitudeConvertor Filter4 = new AltitudeConvertor();
         WildPointFilter Filter5 = new WildPointFilter(4);
-        SinkFilter Filter6 = new SinkFilter("wildPoint.dat");
-        SinkFilter Filter7 = new SinkFilter("outputB.dat");
+        SinkFilter Filter6 = new SinkFilter("./OutputB/wildPoint.dat");
+        SinkFilter Filter7 = new SinkFilter("./OutputB/outputB.dat");
 
         /****************************************************************************
         * Here we connect the filters starting with the sink filter (Filter 1) which

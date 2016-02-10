@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /******************************************************************************************************************
- * File:MiddleFilte.java
+ * File:MergeFilter.java
  *
  * Merge two sorted file and sort the result
  *
