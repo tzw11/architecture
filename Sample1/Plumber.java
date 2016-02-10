@@ -26,7 +26,7 @@ public class Plumber
 		* Here we instantiate three filters.
 		****************************************************************************/
 
-		SourceFilter Filter1 = new SourceFilter();
+		SourceFilter Filter1 = new SourceFilter("FlightData.dat");
 		// MiddleFilter Filter2 = new MiddleFilter();
 		 // TemperatureConvertor Filter2 = new TemperatureConvertor();
 		AltitudeConvertor Filter2 = new AltitudeConvertor();

@@ -49,7 +49,7 @@ public class LessThan10k extends FilterFramework
         int id;
 
         int firstHalf=28;
-        byte[] byteArray;
+        byte[] byteArray = new byte[firstHalf];
         int secondHalf=36;
         byte[] altitudeArray;
         int altitudeSize=8;
