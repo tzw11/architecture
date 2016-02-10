@@ -135,16 +135,18 @@ public class SinkFilter extends FilterFramework
 				****************************************************************************/
 
 				
-                if(items != 0){
+                if(items != 0 && (id == 0 || id == 42)){
                     fileWriter.write("\n");
                 }
-                
+
                 if ( id == 0 )
 				{
                     items = 1;
                     wild = false;
 					TimeStamp.setTimeInMillis(measurement);
-<<<<<<< HEAD
+					if(TimeStampFormat.format(TimeStamp.getTime()).toString().compareTo("2016 01 19::04:23:06:543") == 0){
+						System.out.println("hello");
+					}
                     fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
 
 				} // if
@@ -166,7 +168,6 @@ public class SinkFilter extends FilterFramework
 				// we print the time stamp and the data associated with the ID we are interested
 				// in.
 				****************************************************************************/
-<<<<<<< HEAD
 
 				if ( id != 0 && id != 42 )
 				{
@@ -176,7 +177,7 @@ public class SinkFilter extends FilterFramework
                         fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
                     }
                 }
-=
+
 
 			} // try
 

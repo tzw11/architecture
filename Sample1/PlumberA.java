@@ -34,7 +34,7 @@ public class PlumberA
 		AltitudeConvertor Filter4 = new AltitudeConvertor();
 		// AltitudeConvertor Filter2 = new AltitudeConvertor();
 
-		SinkFilter Filter5 = new SinkFilter();
+		SinkFilter Filter5 = new SinkFilter("outputA.dat");
 
 		/****************************************************************************
 		* Here we connect the filters starting with the sink filter (Filter 1) which

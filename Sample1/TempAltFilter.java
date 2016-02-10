@@ -32,13 +32,13 @@ public class TempAltFilter extends FilterFramework
 
 
   public byte[] longToBytes(long x) {
-      ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+      ByteBuffer buffer = ByteBuffer.allocate(8);
       buffer.putLong(x);
       return buffer.array();
   }
 
   public byte[] intToBytes(int x){
-    ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
+    ByteBuffer buffer = ByteBuffer.allocate(4);
       buffer.putInt(x);
       return buffer.array();
   }

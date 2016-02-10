@@ -1,6 +1,7 @@
 /*
  WildPointFilter, part from sinkfilter
  */
+import java.nio.ByteBuffer;
 import java.util.*;						// This class is used to interpret time words
 import java.text.SimpleDateFormat;		// This class is used to format and write time in a string format.
 
@@ -32,6 +33,8 @@ public class WildPointFilter extends FilterFramework
     
 	public void run()
     {
+        Calendar TimeStamp = Calendar.getInstance();
+        SimpleDateFormat TimeStampFormat = new SimpleDateFormat("yyyy MM dd::hh:mm:ss:SSS");
 		/************************************************************************************
 		*	TimeStamp is used to compute time using java.util's Calendar class.
 		* 	TimeStampFormat is used to format the time value so that it can be easily printed
@@ -50,7 +53,7 @@ public class WildPointFilter extends FilterFramework
 		long measurement;				// This is the word used to store all measurements - conversions are illustrated.
 		int id;							// This is the measurement id
 		int i;							// This is a loop counter
-        byte []TempPool = new byte [10000];                // cache
+        byte []TempPool = new byte [1000000];                // cache
         boolean permit = false;      // indicator
         boolean wildpoint = false;
         int index = 0;
@@ -58,10 +61,10 @@ public class WildPointFilter extends FilterFramework
         double next = -1;
         double pis = -1;
         long mid;
-        byte [] wild = new byte [100];
-        byte [] modified;
+        byte [] wild = new byte [1000];
+        byte [] modified = new byte[8];
         int wildIndex = 0;
-        int [] indexArray = new int [100];
+        int [] indexArray = new int [1000];
         int arrayIndex = 0;
         int validnum = 0;
 
@@ -133,6 +136,11 @@ public class WildPointFilter extends FilterFramework
 					bytesread++;									// Increment the byte count
 
 				} // if
+
+                if(id == 0){
+                    TimeStamp.setTimeInMillis(measurement);
+
+                }
                 
                 if(id == 3){
                     pis = Double.longBitsToDouble(measurement);
@@ -141,7 +149,12 @@ public class WildPointFilter extends FilterFramework
                         //havn't find a valid input
                         if(pis < 0){
                             wildpoint = true;
-                            TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            if(featuresNum == 4){
+                                TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            }else{
+                                TempPool[index - 1 - 44] = 42; //mark *, change the id of time to 42;
+                            }
+
                             //save the index
                             indexArray[arrayIndex++] = index - 1;
                         }else{
@@ -149,21 +162,32 @@ public class WildPointFilter extends FilterFramework
                             wildpoint = false;
                             last = pis;
                             validnum = 1;
+                            mid = Double.doubleToLongBits(last);
+                            ByteBuffer buffer2 = ByteBuffer.allocate(8);
+                            buffer2.putLong(mid);
+                            //byte [] b = new byte[8];
+                            modified = buffer2.array();
+
+                            //modified = getBytes(mid);
                             //update all
                             for(i = 0; i < arrayIndex; i++){
                                 for(int j = 0; j < 8; j++){
-                                    TempPool[indexArray[i] - j] = TempPool[index - 1 - j];
+                                    TempPool[indexArray[i] - j] = modified[index - 1 - j];
                                 }
                             }
                             permit = true;
                             arrayIndex = 0;
                         }
                     }
-                    if(validnum == 1){
+                    else if(validnum == 1){
                         //get the first valid input
                         if(pis < 0 || Math.abs(last - pis) > 10){
                             wildpoint = true;
-                            TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            if(featuresNum == 4){
+                                TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            }else{
+                                TempPool[index - 1 - 44] = 42; //mark *, change the id of time to 42;
+                            }
                             //save the index, we have to wait the next value to handle
                             indexArray[arrayIndex++] = index - 1;
                             validnum = 2;
@@ -173,11 +197,15 @@ public class WildPointFilter extends FilterFramework
                             permit = true;
                         }
                     }
-                    if(validnum == 2){
+                    else if(validnum == 2){
                         //need next
                         if(pis < 0 || Math.abs(last - pis) > 10){
                             wildpoint = true;
-                            TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            if(featuresNum == 4){
+                                TempPool[index - 1 - 32] = 42; //mark *, change the id of time to 42;
+                            }else{
+                                TempPool[index - 1 - 44] = 42; //mark *, change the id of time to 42;
+                            }
                             //save the index, we have to wait the next value to handle
                             indexArray[arrayIndex++] = index - 1;
                             validnum = 2;
@@ -186,7 +214,10 @@ public class WildPointFilter extends FilterFramework
                             next = pis;
                             pis = (next + last) / 2;
                             mid = Double.doubleToLongBits(pis);
-                            modified = getBytes(mid);
+                            ByteBuffer buffer2 = ByteBuffer.allocate(8);
+                            buffer2.putLong(mid);
+                            //byte [] b = new byte[8];
+                            modified = buffer2.array();
                             for(i = arrayIndex - 1; i >= 0; i--){
                                 for(int j = 0; j < 8; j++){
                                     TempPool[indexArray[i] - j] = modified[7 - j];
@@ -205,6 +236,7 @@ public class WildPointFilter extends FilterFramework
                     //system B
                     if(id == 4){
                         if(wildpoint){
+                            System.out.println("sdflkjaslkdfja");
                             // only need time and pressure
                             for(i = 0; i < 12; i++){
                                 WriteFilterOutputPort(1, wild[i]);
@@ -215,6 +247,7 @@ public class WildPointFilter extends FilterFramework
                         }
                         wildIndex = 0;
                         if(permit){
+
                             for(i = 0; i < index; i++){
                                 WriteFilterOutputPort(0, TempPool[i]);
                             }
@@ -266,8 +299,11 @@ public class WildPointFilter extends FilterFramework
 			catch (EndOfStreamException e)
 			{
                 //handle the last items
-                if(index > 0 && validnum == 2){
-                    modified = getBytes(Double.doubleToLongBits(last));
+                if(index > 0){
+                    mid = Double.doubleToLongBits(last);
+                    ByteBuffer buffer2 = ByteBuffer.allocate(8);
+                    buffer2.putLong(mid);
+                    modified = buffer2.array();
                     for(i = arrayIndex - 1; i >= 0; i--){
                         for(int j = 0; j < 8; j++){
                             TempPool[indexArray[i] - j] = modified[7 - j];

@@ -32,7 +32,7 @@ public class LessThan10k extends FilterFramework
 
 
     public byte[] longToBytes(long x) {
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        ByteBuffer buffer = ByteBuffer.allocate(8);
         buffer.putLong(x);
         return buffer.array();
     }

@@ -220,6 +220,8 @@ public class FilterFramework extends Thread
 	{
 		try
 		{
+			if(outIndex == 1)
+				System.out.println("hello");
             OutputWritePort[outIndex].write((int) datum );
 		   	OutputWritePort[outIndex].flush();
 

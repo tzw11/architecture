@@ -28,11 +28,11 @@ public class MergeFilter extends FilterFramework
      *This function is used to output byte
      *************************************************************************************/
     public void output(int x, long y) {
-        ByteBuffer buffer1 = ByteBuffer.allocate(Integer.BYTES);
+        ByteBuffer buffer1 = ByteBuffer.allocate(4);
         buffer1.putInt(x);
         byte [] a = new byte[4];
         a = buffer1.array();
-        ByteBuffer buffer2 = ByteBuffer.allocate(Long.BYTES);
+        ByteBuffer buffer2 = ByteBuffer.allocate(8);
         buffer2.putLong(y);
         byte [] b = new byte[8];
         b = buffer2.array();
