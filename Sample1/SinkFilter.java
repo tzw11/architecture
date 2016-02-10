@@ -144,7 +144,11 @@ public class SinkFilter extends FilterFramework
                     items = 1;
                     wild = false;
 					TimeStamp.setTimeInMillis(measurement);
+<<<<<<< HEAD
                     fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
+=======
+					System.out.print( " ID = " + id + " " + TimeStampFormat.format(TimeStamp.getTime()));
+>>>>>>> origin/master
 
 				} // if
 
@@ -165,6 +169,7 @@ public class SinkFilter extends FilterFramework
 				// we print the time stamp and the data associated with the ID we are interested
 				// in.
 				****************************************************************************/
+<<<<<<< HEAD
 
 				if ( id != 0 && id != 42 )
 				{
@@ -173,6 +178,11 @@ public class SinkFilter extends FilterFramework
                     }else{
                         fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
                     }
+=======
+				else
+				{
+					System.out.print( " ID = " + id + " " + Double.longBitsToDouble(measurement) );
+>>>>>>> origin/master
 
 				} // if
 
