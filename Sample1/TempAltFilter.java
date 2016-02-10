@@ -1,16 +1,11 @@
 /******************************************************************************************************************
-* File:MiddleFilter.java
+* File:TempAltFilter.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*	1.0 November 2008 - Sample Pipe and Filter code (ajl).
 *
 * Description:
 *
-* This class serves as an example for how to use the FilterRemplate to create a standard filter. This particular
-* example is a simple "pass-through" filter that reads data from the filter's input port and writes data out the
-* filter's output port.
+* This class is the filter used in System A to select temperature and altitude columns
 *
 * Parameters: 		None
 *
@@ -19,9 +14,9 @@
 ******************************************************************************************************************/
 
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;  
-import java.nio.ByteBuffer; 
-import java.util.*; 
+import java.text.SimpleDateFormat;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 
 public class TempAltFilter extends FilterFramework

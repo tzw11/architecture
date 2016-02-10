@@ -1,16 +1,11 @@
 /******************************************************************************************************************
-* File:MiddleFilter.java
+* File:AltitudeConvertor.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*   1.0 November 2008 - Sample Pipe and Filter code (ajl).
 *
 * Description:
 *
-* This class serves as an example for how to use the FilterRemplate to create a standard filter. This particular
-* example is a simple "pass-through" filter that reads data from the filter's input port and writes data out the
-* filter's output port.
+* This class is used as a filter that converts the altitude value from feet to meters
 *
 * Parameters:       None
 *
@@ -20,14 +15,14 @@
 
 
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;  
-import java.nio.ByteBuffer; 
-import java.util.*; 
+import java.text.SimpleDateFormat;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 
 public class AltitudeConvertor extends FilterFramework
 {
-    
+
     public AltitudeConvertor(){
         super(1,1);
     }
@@ -89,16 +84,9 @@ public class AltitudeConvertor extends FilterFramework
                     if (i != IdLength-1)                // If this is not the last byte, then slide the
                     {                                   // previously appended byte to the left by one byte
                         id = id << 8;                   // to make room for the next byte we append to the ID
-
                     } // if
-
                     bytesread++;                        // Increment the byte count
-
-                } // for
-
-                
-
-
+                }
                 measurement = 0;
 
                 for (i=0; i<MeasurementLength; i++ )
@@ -116,7 +104,7 @@ public class AltitudeConvertor extends FilterFramework
 
                 } // if
 
-
+                // This identifies the altitude and converts it
                 if (id == 2)
                 {
                     feet = Double.longBitsToDouble(measurement);
@@ -131,7 +119,7 @@ public class AltitudeConvertor extends FilterFramework
                     for (i = 0; i < MeasurementLength; i++) {
                         WriteFilterOutputPort(0,byteArray[i]);
                         byteswritten++;
-                    }               
+                    }
 
                 }
                 else
@@ -146,14 +134,13 @@ public class AltitudeConvertor extends FilterFramework
                         WriteFilterOutputPort(0,byteArray[i]);
                         byteswritten++;
                     }
-
                 }
             } // try
 
             catch (EndOfStreamException e)
             {
                 ClosePorts();
-                System.out.print( "\n" + this.getName() + "::Middle Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
+                System.out.print( "\n" + this.getName() + ":: Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
                 break;
 
             } // catch

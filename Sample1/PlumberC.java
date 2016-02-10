@@ -1,19 +1,14 @@
 import java.util.logging.Filter;
 
 /******************************************************************************************************************
-* File:Plumber.java
+* File:PlumberC.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*   1.0 November 2008 - Sample Pipe and Filter code (ajl).
+
 *
 * Description:
 *
-* This class serves as an example to illstrate how to use the PlumberTemplate to create a main thread that
-* instantiates and connects a set of filters. This example consists of three filters: a source, a middle filter
-* that acts as a pass-through filter (it does nothing to the data), and a sink filter which illustrates all kinds
-* of useful things that you can do with the input stream of data.
+* This class implements the system C and orchestrates the filters and pipes for the system.
 *
 * Parameters:       None
 *
@@ -22,14 +17,14 @@ import java.util.logging.Filter;
 ******************************************************************************************************************/
 public class PlumberC
 {
-   public static void main( String argv[])
+   public static void main( String[] argv)
    {
         /****************************************************************************
         * Here we instantiate three filters.
         ****************************************************************************/
 
-        SourceFilter Filter1 = new SourceFilter("SubSetA.dat");
-        SourceFilter Filter2 = new SourceFilter("SubSetB.dat");
+        SourceFilter Filter1 = new SourceFilter(argv[0]);
+        SourceFilter Filter2 = new SourceFilter(argv[1]);
         MergeFilter Filter3 = new MergeFilter();
         LessThan10k Filter4 = new LessThan10k();
         WildPointFilter Filter5 = new WildPointFilter(6);

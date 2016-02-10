@@ -1,6 +1,19 @@
-/*
- WildPointFilter, part from sinkfilter
- */
+/******************************************************************************************************************
+* File:TemperatureConvertor.java
+* Course: 17655
+* Project: Assignment 1
+*
+* Description:
+*
+* This class is used as a filter to identify wild points, extrapolate data instead of them and save both sets of data
+* This filter has 2 output ports.
+*
+* Parameters:       None
+*
+* Internal Methods: None
+*
+******************************************************************************************************************/
+
 import java.nio.ByteBuffer;
 import java.util.*;						// This class is used to interpret time words
 import java.text.SimpleDateFormat;		// This class is used to format and write time in a string format.
@@ -16,7 +29,7 @@ public class WildPointFilter extends FilterFramework
         super(1, 2);
         featuresNum = couts;
     }
-    
+
     public static byte[] getBytes(long data)
     {
         byte[] bytes = new byte[8];
@@ -30,7 +43,7 @@ public class WildPointFilter extends FilterFramework
         bytes[7] = (byte) ((data >> 56) & 0xff);
         return bytes;
     }
-    
+
 	public void run()
     {
         Calendar TimeStamp = Calendar.getInstance();
@@ -88,10 +101,10 @@ public class WildPointFilter extends FilterFramework
 				for (i=0; i<IdLength; i++ )
 				{
 					databyte = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
-                    
+
                     TempPool[index++] = databyte;       // cache
                     wild[wildIndex++] = databyte;
-                    
+
 					id = id | (databyte & 0xFF);		// We append the byte on to ID...
 
 					if (i != IdLength-1)				// If this is not the last byte, then slide the
@@ -121,10 +134,10 @@ public class WildPointFilter extends FilterFramework
 				for (i=0; i<MeasurementLength; i++ )
 				{
 					databyte = ReadFilterInputPort(0);
-                    
+
                     TempPool[index++] = databyte;                   // cache
                     wild[wildIndex++] = databyte;
-                    
+
 					measurement = measurement | (databyte & 0xFF);	// We append the byte on to measurement...
 
 					if (i != MeasurementLength-1)					// If this is not the last byte, then slide the
@@ -141,10 +154,10 @@ public class WildPointFilter extends FilterFramework
                     TimeStamp.setTimeInMillis(measurement);
 
                 }
-                
+
                 if(id == 3){
                     pis = Double.longBitsToDouble(measurement);
-                    
+
                     if(validnum == 0){
                         //havn't find a valid input
                         if(pis < 0){
@@ -229,9 +242,9 @@ public class WildPointFilter extends FilterFramework
                             permit = true;
                         }
                     }
-                    
+
                 }
-                
+
                 if(featuresNum == 4){
                     //system B
                     if(id == 4){
@@ -254,10 +267,10 @@ public class WildPointFilter extends FilterFramework
                             index = 0;
                             permit = false;
                         }
-                        
+
                     }
-                    
-                    
+
+
                 }
 
                 if(featuresNum == 6){
@@ -282,10 +295,10 @@ public class WildPointFilter extends FilterFramework
                             permit = false;
                         }
                     }
-                    
-                    
+
+
                 }
-                
+
 
 			} // try
 
@@ -313,8 +326,8 @@ public class WildPointFilter extends FilterFramework
                     }
                     //file end
                 }
-                
-                
+
+
 				ClosePorts();
 				System.out.print( "\n" + this.getName() + "::Sink Exiting; bytes read: " + bytesread );
 				break;

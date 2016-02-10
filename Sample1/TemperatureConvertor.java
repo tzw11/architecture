@@ -1,16 +1,11 @@
 /******************************************************************************************************************
-* File:MiddleFilter.java
+* File:TemperatureConvertor.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*	1.0 November 2008 - Sample Pipe and Filter code (ajl).
 *
 * Description:
 *
-* This class serves as an example for how to use the FilterRemplate to create a standard filter. This particular
-* example is a simple "pass-through" filter that reads data from the filter's input port and writes data out the
-* filter's output port.
+* This class is used as a filter to convert temperature values fro farenheit to celsius
 *
 * Parameters: 		None
 *
@@ -20,14 +15,14 @@
 
 
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;	
-import java.nio.ByteBuffer;	
-import java.util.*;	
+import java.text.SimpleDateFormat;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 
 public class TemperatureConvertor extends FilterFramework
 {
-	
+
     public TemperatureConvertor(){
         super(1,1);
     }
@@ -96,7 +91,7 @@ public class TemperatureConvertor extends FilterFramework
 
 				} // for
 
-			
+
 
 
 				measurement = 0;
@@ -131,7 +126,7 @@ public class TemperatureConvertor extends FilterFramework
 					for (i = 0; i < MeasurementLength; i++) {
 						WriteFilterOutputPort(0,byteArray[i]);
 						byteswritten++;
-					}				
+					}
 
 				}
 				else
@@ -153,7 +148,7 @@ public class TemperatureConvertor extends FilterFramework
 			catch (EndOfStreamException e)
 			{
 				ClosePorts();
-				System.out.print( "\n" + this.getName() + "::Middle Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
+				System.out.print( "\n" + this.getName() + "::Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
 				break;
 
 			} // catch

@@ -89,13 +89,14 @@ public class LessThan10k extends FilterFramework
                         altitudeValue = altitudeValue << 8;             // to make room for the next byte we append to the
                                                                     // measurement
                     }
-
                     bytesread++;
                 }
                 measurement = Double.longBitsToDouble(altitudeValue);
+                //Assign the outport as 0 and change it to 1 if value is less than 10000
                 outport = 0;
                 if(measurement < 10000)
                     outport = 1;
+                // First write byearray, then the measurement value and then the remaing half of the frame
                 for(i=0;i<firstHalf;i++){
                     WriteFilterOutputPort(outport,byteArray[i]);
                     byteswritten++;
@@ -115,7 +116,7 @@ public class LessThan10k extends FilterFramework
             catch (EndOfStreamException e)
             {
                 ClosePorts();
-                System.out.print( "\n" + this.getName() + "::Middle Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
+                System.out.print( "\n" + this.getName() + "::Exiting; bytes read: " + bytesread + " bytes written: " + byteswritten );
                 break;
 
             } // catch

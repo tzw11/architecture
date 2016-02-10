@@ -1,5 +1,5 @@
 /******************************************************************************************************************
-* File:MiddleFilter.java
+* File:TempAltPressFilter.java
 * Course: 17655
 * Project: Assignment 1
 * Copyright: Copyright (c) 2003 Carnegie Mellon University
@@ -8,9 +8,7 @@
 *
 * Description:
 *
-* This class serves as an example for how to use the FilterRemplate to create a standard filter. This particular
-* example is a simple "pass-through" filter that reads data from the filter's input port and writes data out the
-* filter's output port.
+* This class is the filter used in System A to select temperature,pressure and altitude columns
 *
 * Parameters: 		None
 *
@@ -153,44 +151,6 @@ public class TempAltPressFilter extends FilterFramework
             byteswritten++;
           }
         } // if
-
-        //Original code
-        /****************************************************************************
-        // Here we look for an ID of 0 which indicates this is a time measurement.
-        // Every frame begins with an ID of 0, followed by a time stamp which correlates
-        // to the time that each proceeding measurement was recorded. Time is stored
-        // in milliseconds since Epoch. This allows us to use Java's calendar class to
-        // retrieve time and also use text format classes to format the output into
-        // a form humans can read. So this provides great flexibility in terms of
-        // dealing with time arithmetically or for string display purposes. This is
-        // illustrated below.
-        ****************************************************************************/
-        /*
-        if ( id == 0 )
-        {
-          TimeStamp.setTimeInMillis(measurement);
-
-        } // if
-        */
-
-        /****************************************************************************
-        // Here we pick up a measurement (ID = 3 in this case), but you can pick up
-        // any measurement you want to. All measurements in the stream are
-        // decommutated by this class. Note that all data measurements are double types
-        // This illustrates how to convert the bits read from the stream into a double
-        // type. Its pretty simple using Double.longBitsToDouble(long value). So here
-        // we print the time stamp and the data associated with the ID we are interested
-        // in.
-        ****************************************************************************/
-        /*
-        if ( id == 3 )
-        {
-          System.out.print( TimeStampFormat.format(TimeStamp.getTime()) + " ID = " + id + " " + Double.longBitsToDouble(measurement) );
-
-        } // if
-
-        System.out.print( "\n" );
-        */
 
 			} // try
 

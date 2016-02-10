@@ -2,14 +2,10 @@
 * File:SinkFilter.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*	1.0 November 2008 - Sample Pipe and Filter code (ajl).
 *
 * Description:
 *
-* This class serves as an example for using the SinkFilterTemplate for creating a sink filter. This particular
-* filter reads some input from the filter's input port and does the following:
+* This particular filter reads some input from the filter's input port and does the following:
 *
 *	1) It parses the input stream and "decommutates" the measurement ID
 *	2) It parses the input steam for measurments and "decommutates" measurements, storing the bits in a long word.
@@ -29,13 +25,13 @@ import java.text.SimpleDateFormat;		// This class is used to format and write ti
 
 public class SinkFilter extends FilterFramework
 {
-    private String fileName;
-    public SinkFilter(String Name){
-        super(1, 1);
-        fileName = Name;
-    }
-	public void run()
-    {
+  private String fileName;
+  public SinkFilter(String Name){
+    super(1, 1);
+    fileName = Name;
+  }
+  public void run()
+  {
 		/************************************************************************************
 		*	TimeStamp is used to compute time using java.util's Calendar class.
 		* 	TimeStampFormat is used to format the time value so that it can be easily printed
@@ -54,13 +50,13 @@ public class SinkFilter extends FilterFramework
 		long measurement;				// This is the word used to store all measurements - conversions are illustrated.
 		int id;							// This is the measurement id
 		int i;							// This is a loop counter
-        boolean wild = false;
-        int items = 0;
-        try {
-            
-            FileWriter fileWriter = new FileWriter(fileName);
-        
-        
+    boolean wild = false;
+    int items = 0;
+    try {
+
+      FileWriter fileWriter = new FileWriter(fileName);
+
+
 		/*************************************************************
 		*	First we announce to the world that we are alive...
 		**************************************************************/
@@ -134,29 +130,29 @@ public class SinkFilter extends FilterFramework
 				// illustrated below.
 				****************************************************************************/
 
-				
-                if(items != 0 && (id == 0 || id == 42)){
-                    fileWriter.write("\n");
-                }
 
-                if ( id == 0 )
-				{
-					System.out.println(TimeStampFormat.format(TimeStamp.getTime()));
-                    items = 1;
-                    wild = false;
-					TimeStamp.setTimeInMillis(measurement);
-                    fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
+        if(items != 0 && (id == 0 || id == 42)){
+          fileWriter.write("\n");
+        }
+
+        if ( id == 0 )
+        {
+
+          items = 1;
+          wild = false;
+          TimeStamp.setTimeInMillis(measurement);
+          fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
 
 				} // if
 
-                if ( id == 42 )
-                {
-                    items = 1;
-                    wild = true;
-                    TimeStamp.setTimeInMillis(measurement);
-                    fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
-                }
-                
+        if ( id == 42 )
+        {
+          items = 1;
+          wild = true;
+          TimeStamp.setTimeInMillis(measurement);
+          fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
+        }
+
 				/****************************************************************************
 				// Here we pick up a measurement (ID = 3 in this case), but you can pick up
 				// any measurement you want to. All measurements in the stream are
@@ -169,12 +165,12 @@ public class SinkFilter extends FilterFramework
 
 				if ( id != 0 && id != 42 )
 				{
-                    if(wild && id == 3){
-                        fileWriter.write( Double.longBitsToDouble(measurement) + "*         ");
-                    }else{
-                        fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
-                    }
-                }
+          if(wild && id == 3){
+            fileWriter.write( Double.longBitsToDouble(measurement) + "*         ");
+          }else{
+            fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
+          }
+        }
 
 
 			} // try
@@ -196,9 +192,9 @@ public class SinkFilter extends FilterFramework
 			} // catch
 
 		} // while
-        }catch (IOException e) {
-            System.out.print("\n oh my god");
-        }
+  }catch (IOException e) {
+    System.out.print("\n oh my god");
+  }
 
    } // run
 

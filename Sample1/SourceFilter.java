@@ -2,9 +2,6 @@
 * File:SourceFilter.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*	1.0 November 2008 - Sample Pipe and Filter code (ajl).
 *
 * Description:
 *

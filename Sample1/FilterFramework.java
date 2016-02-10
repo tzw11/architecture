@@ -2,9 +2,7 @@
 * File:FilterFramework.java
 * Course: 17655
 * Project: Assignment 1
-* Copyright: Copyright (c) 2003 Carnegie Mellon University
-* Versions:
-*	1.0 November 2008 - Initial rewrite of original assignment 1 (ajl).
+
 *
 * Description:
 *
@@ -49,8 +47,8 @@ public class FilterFramework extends Thread
 	// output pipe and will send no more data.
 
 	private FilterFramework[] InputFilter;
-    
-    // construction
+
+    // Constructor that initializes the required numebr of input and output ports
     public FilterFramework(int inputportNum, int outputportNum){
         InputReadPort = new PipedInputStream [inputportNum];
         for(int i = 0; i < inputportNum; i++){
@@ -62,7 +60,7 @@ public class FilterFramework extends Thread
         }
         InputFilter = new FilterFramework [inputportNum];
     }
-    
+
 
 	/***************************************************************************
 	* InnerClass:: EndOfStreamExeception
@@ -79,7 +77,7 @@ public class FilterFramework extends Thread
 	****************************************************************************/
 
 	class EndOfStreamException extends Exception {
-		
+
 		static final long serialVersionUID = 0; // the version for serializing
 
 		EndOfStreamException () { super(); }
@@ -295,7 +293,7 @@ public class FilterFramework extends Thread
 		} // catch
 
 	} // ClosePorts
-    
+
     void ClosePorts(){
         try
         {
@@ -307,12 +305,12 @@ public class FilterFramework extends Thread
             for(int i = 0; i < length; i++){
                 OutputWritePort[i].close();
             }
-            
+
         }
         catch( Exception Error )
         {
             System.out.println( "\n" + this.getName() + " ClosePorts error::" + Error );
-            
+
         } // catch
     }
 
