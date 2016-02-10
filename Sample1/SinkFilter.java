@@ -146,9 +146,6 @@ public class SinkFilter extends FilterFramework
 					TimeStamp.setTimeInMillis(measurement);
 <<<<<<< HEAD
                     fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
-=======
-					System.out.print( " ID = " + id + " " + TimeStampFormat.format(TimeStamp.getTime()));
->>>>>>> origin/master
 
 				} // if
 
@@ -178,15 +175,8 @@ public class SinkFilter extends FilterFramework
                     }else{
                         fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
                     }
-=======
-				else
-				{
-					System.out.print( " ID = " + id + " " + Double.longBitsToDouble(measurement) );
->>>>>>> origin/master
-
-				} // if
-
-				System.out.print( "\n" );
+                }
+=
 
 			} // try
 
