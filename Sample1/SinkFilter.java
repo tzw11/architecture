@@ -23,13 +23,16 @@
 * Internal Methods: None
 *
 ******************************************************************************************************************/
+import java.io.*;
 import java.util.*;						// This class is used to interpret time words
 import java.text.SimpleDateFormat;		// This class is used to format and write time in a string format.
 
 public class SinkFilter extends FilterFramework
 {
-    public SinkFilter(){
+    private String fileName;
+    public SinkFilter(String Name){
         super(1, 1);
+        fileName = Name;
     }
 	public void run()
     {
@@ -51,7 +54,13 @@ public class SinkFilter extends FilterFramework
 		long measurement;				// This is the word used to store all measurements - conversions are illustrated.
 		int id;							// This is the measurement id
 		int i;							// This is a loop counter
-
+        boolean wild = false;
+        int items = 0;
+        try {
+            
+            FileWriter fileWriter = new FileWriter(fileName);
+        
+        
 		/*************************************************************
 		*	First we announce to the world that we are alive...
 		**************************************************************/
@@ -125,12 +134,28 @@ public class SinkFilter extends FilterFramework
 				// illustrated below.
 				****************************************************************************/
 
-				if ( id == 0 )
+				
+                if(items != 0){
+                    fileWriter.write("\n");
+                }
+                
+                if ( id == 0 )
 				{
+                    items = 1;
+                    wild = false;
 					TimeStamp.setTimeInMillis(measurement);
+                    fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
 
 				} // if
 
+                if ( id == 42 )
+                {
+                    items = 1;
+                    wild = true;
+                    TimeStamp.setTimeInMillis(measurement);
+                    fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
+                }
+                
 				/****************************************************************************
 				// Here we pick up a measurement (ID = 3 in this case), but you can pick up
 				// any measurement you want to. All measurements in the stream are
@@ -141,9 +166,13 @@ public class SinkFilter extends FilterFramework
 				// in.
 				****************************************************************************/
 
-				if ( id == 3 )
+				if ( id != 0 && id != 42 )
 				{
-					System.out.print( TimeStampFormat.format(TimeStamp.getTime()) + " ID = " + id + " " + Double.longBitsToDouble(measurement) );
+                    if(wild && id == 3){
+                        fileWriter.write( Double.longBitsToDouble(measurement) + "*         ");
+                    }else{
+                        fileWriter.write( Double.longBitsToDouble(measurement) + "         ");
+                    }
 
 				} // if
 
@@ -166,6 +195,9 @@ public class SinkFilter extends FilterFramework
 			} // catch
 
 		} // while
+        }catch (IOException e) {
+            System.out.print("\n oh my god");
+        }
 
    } // run
 

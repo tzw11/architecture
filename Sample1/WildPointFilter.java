@@ -6,10 +6,14 @@ import java.text.SimpleDateFormat;		// This class is used to format and write ti
 
 public class WildPointFilter extends FilterFramework
 {
-    public WildPointFilter(){
+    private int featuresNum;
+    // system b 4
+    // system c 6
+    public WildPointFilter(int couts){
         //one input, two output
         //ouput[0] for outputb, output[1] for wildpoints
         super(1, 2);
+        featuresNum = couts;
     }
     
     public static byte[] getBytes(long data)
@@ -195,30 +199,61 @@ public class WildPointFilter extends FilterFramework
                         }
                     }
                     
+                }
+                
+                if(featuresNum == 4){
+                    //system B
+                    if(id == 4){
+                        if(wildpoint){
+                            // only need time and pressure
+                            for(i = 0; i < 12; i++){
+                                WriteFilterOutputPort(1, wild[i]);
+                            }
+                            for(i = 24; i < 36; i++){
+                                WriteFilterOutputPort(1, wild[i]);
+                            }
+                        }
+                        wildIndex = 0;
+                        if(permit){
+                            for(i = 0; i < index; i++){
+                                WriteFilterOutputPort(0, TempPool[i]);
+                            }
+                            //next item, clear
+                            index = 0;
+                            permit = false;
+                        }
+                        
+                    }
+                    
                     
                 }
 
-                if(id == 4){
-                    if(wildpoint){
-                        // only need time and pressure
-                        for(i = 0; i < 12; i++){
-                            WriteFilterOutputPort(1, wild[i]);
+                if(featuresNum == 6){
+                    //system C
+                    if(id == 5){
+                        if(wildpoint){
+                            // only need time and pressure
+                            for(i = 0; i < 12; i++){
+                                WriteFilterOutputPort(1, wild[i]);
+                            }
+                            for(i = 36; i < 48; i++){
+                                WriteFilterOutputPort(1, wild[i]);
+                            }
                         }
-                        for(i = 24; i < 36; i++){
-                            WriteFilterOutputPort(1, wild[i]);
+                        wildIndex = 0;
+                        if(permit){
+                            for(i = 0; i < index; i++){
+                                WriteFilterOutputPort(0, TempPool[i]);
+                            }
+                            //next item, clear
+                            index = 0;
+                            permit = false;
                         }
-                    }
-                    wildIndex = 0;
-                    if(permit){
-                        for(i = 0; i < index; i++){
-                            WriteFilterOutputPort(0, TempPool[i]);
-                        }
-                        //next item, clear
-                        index = 0;
-                        permit = false;
                     }
                     
+                    
                 }
+                
 
 			} // try
 
