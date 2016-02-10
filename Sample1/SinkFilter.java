@@ -80,8 +80,8 @@ public class SinkFilter extends FilterFramework
 
 				for (i=0; i<IdLength; i++ )
 				{
-					databyte = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
 
+					databyte = ReadFilterInputPort(0);	// This is where we read the byte from the stream...
 					id = id | (databyte & 0xFF);		// We append the byte on to ID...
 
 					if (i != IdLength-1)				// If this is not the last byte, then slide the
@@ -141,12 +141,10 @@ public class SinkFilter extends FilterFramework
 
                 if ( id == 0 )
 				{
+					System.out.println(TimeStampFormat.format(TimeStamp.getTime()));
                     items = 1;
                     wild = false;
 					TimeStamp.setTimeInMillis(measurement);
-					if(TimeStampFormat.format(TimeStamp.getTime()).toString().compareTo("2016 01 19::04:23:06:543") == 0){
-						System.out.println("hello");
-					}
                     fileWriter.write(TimeStampFormat.format(TimeStamp.getTime()) + "         ");
 
 				} // if
@@ -189,6 +187,8 @@ public class SinkFilter extends FilterFramework
 
 			catch (EndOfStreamException e)
 			{
+				fileWriter.flush();
+				fileWriter.close();
 				ClosePorts();
 				System.out.print( "\n" + this.getName() + "::Sink Exiting; bytes read: " + bytesread );
 				break;

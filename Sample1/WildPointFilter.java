@@ -236,7 +236,6 @@ public class WildPointFilter extends FilterFramework
                     //system B
                     if(id == 4){
                         if(wildpoint){
-                            System.out.println("sdflkjaslkdfja");
                             // only need time and pressure
                             for(i = 0; i < 12; i++){
                                 WriteFilterOutputPort(1, wild[i]);

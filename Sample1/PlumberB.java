@@ -26,17 +26,17 @@ public class PlumberB
         * Here we instantiate three filters.
         ****************************************************************************/
 
-        SourceFilter Filter1 = new SourceFilter("/Users/wilsoncao/desktop/architecture/Sample1/FlightData.dat");
+        SourceFilter Filter1 = new SourceFilter("FlightData.dat");
         // MiddleFilter Filter2 = new MiddleFilter();
          // TemperatureConvertor Filter2 = new TemperatureConvertor();
         TempAltPressFilter Filter2 = new TempAltPressFilter();
         TemperatureConvertor Filter3 = new TemperatureConvertor();
         AltitudeConvertor Filter4 = new AltitudeConvertor();
         WildPointFilter Filter5 = new WildPointFilter(4);
-        SinkFilter Filter6 = new SinkFilter("/Users/wilsoncao/desktop/architecture/Sample1/wildPoint.dat");
+        SinkFilter Filter6 = new SinkFilter("wildPoint.dat");
         // AltitudeConvertor Filter2 = new AltitudeConvertor();
 
-        SinkFilter Filter7 = new SinkFilter("/Users/wilsoncao/desktop/architecture/Sample1/outputB.dat");
+        SinkFilter Filter7 = new SinkFilter("outputB.dat");
         //SinkTest Filter7 = new SinkTest();
 
         /****************************************************************************
